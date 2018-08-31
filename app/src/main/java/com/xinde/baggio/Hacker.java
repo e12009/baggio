@@ -3,7 +3,8 @@ package com.xinde.baggio;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.xinde.baggio.hook.JavaChecker;
+
+import com.xinde.baggio.hook.taobao.TaobaoHook;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;

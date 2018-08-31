@@ -1063,6 +1063,19 @@
 * cpuinfo
 
 
+## other
+new FileInputStream("/proc/net/tcp")
+/system/bin/androVM-prop
+emulator_adb xposedemo 中
+build 信息的统一
+audio/video/gpu
+
+
+## 支付宝源码阅读记录
+* com.alipay.security.mobile.module.deviceinfo.b
+* com.alipay.mobile.nebula.util.H5DeviceHelper
+
+
 
 
 
