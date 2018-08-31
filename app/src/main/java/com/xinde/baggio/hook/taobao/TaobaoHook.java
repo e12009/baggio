@@ -33,6 +33,7 @@ public class TaobaoHook extends AbstractHook {
         // TODO: 2018/8/16 解嵌套
         try {
 
+            // attention!!! 不加这层 hook， 在在跳转到滑块页面 taobao 会崩溃
             XposedHelpers.findAndHookMethod(this.getClassLoader().loadClass("com.ali.mobisecenhance.ld.BridgeApp2"), "onCreate", new XC_MethodHook() {
 
                 @Override
