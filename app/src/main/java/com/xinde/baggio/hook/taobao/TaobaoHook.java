@@ -32,39 +32,40 @@ public class TaobaoHook extends AbstractHook {
 
         // TODO: 2018/8/16 解嵌套
         try {
-            XposedHelpers.findAndHookMethod(TaobaoHook.this.getClassLoader().loadClass("android.app.Activity"), "onCreate", Bundle.class, new XC_MethodHook() {
+
+            XposedHelpers.findAndHookMethod(this.getClassLoader().loadClass("com.ali.mobisecenhance.ld.BridgeApp2"), "onCreate", new XC_MethodHook() {
+
                 @Override
                 protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                     super.afterHookedMethod(param);
-                    String className = param.thisObject.getClass().getSimpleName();
-                    if (TextUtils.equals(className, "Welcome")) {
-                        Log.i(TAG, "afterHookedMethod: hook taobao Welcome");
+                    Log.i(TAG, "afterHookedMethod: hook BridgeApp2");
 
-                        XposedHelpers.findAndHookMethod(Dialog.class, "show", new XC_MethodReplacement() {
+                    XposedHelpers.findAndHookMethod(TaobaoHook.this.getClassLoader().loadClass("android.app.Activity"), "onCreate", Bundle.class, new XC_MethodHook() {
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                            super.afterHookedMethod(param);
+                            String className = param.thisObject.getClass().getSimpleName();
+                            if (TextUtils.equals(className, "Welcome")) {
+                                Log.i(TAG, "afterHookedMethod: hook taobao Welcome");
 
-                            @Override
-                            protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
-                                (new Exception()).printStackTrace();
-                                String className = param.thisObject.getClass().getSimpleName();
-                                if (TextUtils.equals(className, "Fyq")) {
-                                    Log.i(TAG, "afterHookedMethod: nop c8.Fyq.show()");
-                                    return new Object();
-                                }
-                                return XposedBridge.invokeOriginalMethod(param.method, param.thisObject, param.args);
+                                XposedHelpers.findAndHookMethod(Dialog.class, "show", new XC_MethodReplacement() {
+
+                                    @Override
+                                    protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+                                        (new Exception()).printStackTrace();
+                                        String className = param.thisObject.getClass().getSimpleName();
+                                        if (TextUtils.equals(className, "Fyq")) {
+                                            Log.i(TAG, "afterHookedMethod: nop c8.Fyq.show()");
+                                            return new Object();
+                                        }
+                                        return XposedBridge.invokeOriginalMethod(param.method, param.thisObject, param.args);
+                                    }
+                                });
                             }
-                        });
-                    }
+                        }
+                    });
                 }
             });
-//            XposedHelpers.findAndHookMethod(this.getClassLoader().loadClass("com.ali.mobisecenhance.ld.BridgeApp2"), "onCreate", new XC_MethodHook() {
-//
-//                @Override
-//                protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-//                    super.afterHookedMethod(param);
-//
-//                    Log.i(TAG, "afterHookedMethod: hook BridgeApp2");
-//                }
-//            });
         } catch (Exception e) {
             e.printStackTrace();
         }
