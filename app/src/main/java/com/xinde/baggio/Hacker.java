@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 
+import com.xinde.baggio.hook.ctclient.CtclientHook;
 import com.xinde.baggio.hook.taobao.TaobaoHook;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
@@ -21,6 +22,8 @@ public class Hacker implements IXposedHookLoadPackage {
     @Override
     public void handleLoadPackage(final XC_LoadPackage.LoadPackageParam lpparam) throws Throwable {
         Log.i(TAG, "handleLoadPackage: start hack...");
+
+        new CtclientHook(lpparam).run();
 
         if (TextUtils.equals(lpparam.packageName, "com.eg.android.AlipayGphone")
                 || TextUtils.equals(lpparam.packageName, "com.xinde.baresi")
@@ -49,7 +52,7 @@ public class Hacker implements IXposedHookLoadPackage {
 //            new AlipayHook(lpparam).run();
 
             // hack taobao
-            new TaobaoHook(lpparam).run();
+//            new TaobaoHook(lpparam).run();
         }
     }
 }
