@@ -23,7 +23,6 @@ public class Hacker implements IXposedHookLoadPackage {
         Log.i(TAG, "handleLoadPackage: start hack...");
 
         if (TextUtils.equals(lpparam.packageName, "com.eg.android.AlipayGphone")
-                || TextUtils.equals(lpparam.packageName, "com.xinde.baresi")
                 || TextUtils.equals(lpparam.packageName, "com.taobao.taobao")
                 ) {
 //            new BuildInfoHook(lpparam).run();

@@ -5,6 +5,7 @@ import android.util.Log;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedBridge;
@@ -43,6 +44,7 @@ public abstract class AbstractHook {
     protected void hookMethods(String className, String methodName, XC_MethodHook xmh) {
         try {
             Class<?> clazz = this.getClassLoader().loadClass(className);
+            Log.d(TAG, "hookMethods: clazz --> " + Arrays.toString(clazz.getDeclaredMethods()));
 
             for (Method method : clazz.getDeclaredMethods()) {
 
@@ -51,14 +53,43 @@ public abstract class AbstractHook {
                 int modifiers = method.getModifiers();
                 if (Modifier.isAbstract(modifiers)) continue;
 
-                if (Modifier.isPrivate(modifiers) || Modifier.isProtected(modifiers)) {
-                    method.setAccessible(true);
-                }
+                Log.d(TAG, "hookMethods: isPublic " + Modifier.isPublic(modifiers));
+                if (!Modifier.isPublic(modifiers)) method.setAccessible(true);
 
+                Log.d(TAG, "hookMethods: " + method);
                 XposedBridge.hookMethod(method, xmh);
             }
         } catch (Exception e) {
             Log.e(TAG, "hookMethods: ", e);
+        }
+    }
+
+
+    /**
+     * hook
+     *
+     * @param clazz
+     * @param methodName
+     * @param parameterTypesAndCallback
+     */
+    protected void hookMethod(Class<?> clazz, String methodName, Object... parameterTypesAndCallback) {
+        try {
+            Log.d(TAG, "hookMethod: " + clazz);
+            Class<?>[] paramsType = getParameterClasses(this.getClassLoader(), parameterTypesAndCallback);
+            Method method = clazz.getDeclaredMethod(methodName, paramsType);
+            if (method == null) return;
+
+            int modifiers = method.getModifiers();
+            if (Modifier.isAbstract(modifiers)) return;
+
+            if (!Modifier.isPublic(modifiers)) {
+                method.setAccessible(true);
+            }
+
+            XC_MethodHook callback = (XC_MethodHook) parameterTypesAndCallback[parameterTypesAndCallback.length - 1];
+            XposedBridge.hookMethod(method, callback);
+        } catch (Exception e) {
+            Log.e(TAG, "hookMethod: ", e);
         }
     }
 
@@ -73,6 +104,7 @@ public abstract class AbstractHook {
         try {
             Class<?> clazz = this.getClassLoader().loadClass(className);
 
+            Log.d(TAG, "hookMethod: " + clazz);
             Class<?>[] paramsType = getParameterClasses(this.getClassLoader(), parameterTypesAndCallback);
             Method method = clazz.getDeclaredMethod(methodName, paramsType);
             if (method == null) return;
