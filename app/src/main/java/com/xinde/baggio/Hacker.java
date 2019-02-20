@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 
+import com.xinde.baggio.hook.douyin.DouyinHook;
 import com.xinde.baggio.hook.taobao.TaobaoHook;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
@@ -25,6 +26,7 @@ public class Hacker implements IXposedHookLoadPackage {
         if (TextUtils.equals(lpparam.packageName, "com.eg.android.AlipayGphone")
                 || TextUtils.equals(lpparam.packageName, "com.xinde.baresi")
                 || TextUtils.equals(lpparam.packageName, "com.taobao.taobao")
+                || TextUtils.equals(lpparam.packageName, "com.ss.android.ugc.aweme")
                 ) {
 //            new BuildInfoHook(lpparam).run();
 //            new CpuInfoHook(lpparam).run();
@@ -49,7 +51,8 @@ public class Hacker implements IXposedHookLoadPackage {
 //            new AlipayHook(lpparam).run();
 
             // hack taobao
-            new TaobaoHook(lpparam).run();
+//            new TaobaoHook(lpparam).run();
+            new DouyinHook(lpparam).run();
         }
     }
 }
