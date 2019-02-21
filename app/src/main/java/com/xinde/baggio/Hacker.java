@@ -23,35 +23,8 @@ public class Hacker implements IXposedHookLoadPackage {
     public void handleLoadPackage(final XC_LoadPackage.LoadPackageParam lpparam) throws Throwable {
         Log.i(TAG, "handleLoadPackage: start hack...");
 
-        if (TextUtils.equals(lpparam.packageName, "com.eg.android.AlipayGphone")
-                || TextUtils.equals(lpparam.packageName, "com.xinde.baresi")
-                || TextUtils.equals(lpparam.packageName, "com.taobao.taobao")
-                || TextUtils.equals(lpparam.packageName, "com.ss.android.ugc.aweme")
-                ) {
-//            new BuildInfoHook(lpparam).run();
-//            new CpuInfoHook(lpparam).run();
-//            new GenymotionHook(lpparam).run();
-//            new QemuHook(lpparam).run();
-//            new DriverHook(lpparam).run();
-//            new RootHook(lpparam).run();
-//            new NetworkInfoHook(lpparam).run();
-//            new TelephonyHook(lpparam).run();
-//            new BluetoothHook(lpparam).run();
-//            new OpenGLHook(lpparam).run(); // Alipay 未调用
-//            new DisplayHook(lpparam).run();
-//            new LocationHook(lpparam).run();
-//            new PackageManagerHook(lpparam).run();
-//            new RuntimeHook(lpparam).run();
-//            new BatteryHook(lpparam).run();
-//            new SensorManagerHook(lpparam).run();
-
-//            new JavaChecker(lpparam).run();
-
-            // hack alipay
-//            new AlipayHook(lpparam).run();
-
-            // hack taobao
-//            new TaobaoHook(lpparam).run();
+        if (TextUtils.equals(lpparam.packageName, "com.ss.android.ugc.aweme")) {
+            Log.d(TAG, "handleLoadPackage: start hook douyin");
             new DouyinHook(lpparam).run();
         }
     }
