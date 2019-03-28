@@ -44,7 +44,7 @@ public class JsonUtil {
      * @param obj
      * @return
      */
-    public static String parseBeanToJson(Object obj) {
+    public static String  parseBeanToJson(Object obj) {
         try {
 //            Gson gson = new Gson();
             Gson gson = new GsonBuilder().disableHtmlEscaping().create();

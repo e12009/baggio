@@ -21,7 +21,7 @@ public class Hacker implements IXposedHookLoadPackage {
 
     @Override
     public void handleLoadPackage(final XC_LoadPackage.LoadPackageParam lpparam) throws Throwable {
-        Log.i(TAG, "handleLoadPackage: start hack...");
+        Log.i(TAG, "handleLoadPackage: start hack " + lpparam.packageName);
 
         if (TextUtils.equals(lpparam.packageName, "com.ss.android.ugc.aweme")) {
             Log.d(TAG, "handleLoadPackage: start hook douyin");

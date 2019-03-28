@@ -19,7 +19,7 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage;
  * update: Shawn 2018/6/25 13:53
  */
 public abstract class AbstractHook {
-    private static final String TAG = "AbstractHook";
+    private static final String TAG = "Hacker";
 
     protected XC_LoadPackage.LoadPackageParam loadPackageParam;
 

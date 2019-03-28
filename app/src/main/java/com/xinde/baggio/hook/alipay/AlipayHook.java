@@ -87,9 +87,9 @@ public class AlipayHook extends AbstractHook {
 
 
     private void hookDeviceInfo() {
-        String className = "com.alipay.security.mobile.module.deviceinfo.b";
+        String className = "com.alipay.security.mobile.module.deviceinfo.encode";
         // 2. hook log switch and modify it
-//                    Class<?> clazz = AlipayHook.this.loadPackageParam.classLoader.loadClass("com.alipay.security.mobile.module.deviceinfo.b");
+//                    Class<?> clazz = AlipayHook.this.loadPackageParam.classLoader.loadClass("com.alipay.security.mobile.module.deviceinfo.encode");
 //                    XposedHelpers.findField(clazz, "a").set(null, true);
         hookMethods(className, "a", new XC_MethodHook() {
             @Override

@@ -43,7 +43,7 @@ public class FileRedirectFaker extends XC_MethodHook {
 //        Object a = param.args[0];
 //        if (a instanceof String) {
 //            String b = (String) a;
-//            if (b.contains("cpu") || b.contains()) {
+//            if (encode.contains("cpu") || encode.contains()) {
 //                new Exception().printStackTrace();
 //            }
 //        }
